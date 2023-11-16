@@ -36,7 +36,6 @@ jobs:
       - name: Set up GitHub Pages 
         if: ${{ steps.runCypressTest.outcome == 'success' || steps.runCypressTest.outcome == 'failure'}}
         uses: peaceiris/actions-gh-pages@v3
-
         env:
           # pass the Cypress Cloud record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
