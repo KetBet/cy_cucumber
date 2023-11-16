@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx cypress open",
-    "cypress:open": "cypress open",
-    "build": "webpack --config webpack.config.js"
+    "test": "npm run cypress:run || npm run report:generate:json || npm run report:generate:html",
+    "cypress:run": "cypress run",
+    "build": "webpack --config webpack.config.js",
+    "report:generate:json": "npx ts-node ./generate-cucumber-json.ts",
+    "report:generate:html": "node ./cucumber-html-report.ts"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +19,8 @@
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^19.1.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
-    "esbuild": "^0.19.5"
+    "cucumber-json-report-formatter": "^0.1.4",
+    "esbuild": "^0.19.5",
+    "multiple-cucumber-html-reporter": "^3.5.0"
   }
 }
