@@ -14,13 +14,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
         with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
+          record: true
+        env:
+          # pass the Cypress Cloud record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Crate reports folder
         run: mkdir cypress/reports
