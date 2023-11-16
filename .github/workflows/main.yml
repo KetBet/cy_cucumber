@@ -10,10 +10,29 @@ jobs:
         uses: actions/checkout@v4
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Cypress run
+      - name: Crate reports folder
+        run: mkdir cypress/reports
+
+      - name: Cypress run 
         uses: cypress-io/github-action@v6
         with:
           record: true
+        id: runCypressTest
+        continue-on-error: true
+
+      - name: Generate json
+        run: npm run report:generate:json
+        
+      - name: Generate report
+        run: npm run report:generate:html
+        
+      - name: Set up GitHub Pages 
+        if: ${{ steps.runCypressTest.outcome == 'success' || steps.runCypressTest.outcome == 'failure'}}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./cypress/reports/cucumber-report.html
+          publish_branch: cypress-cucumber-report
         env:
           # pass the Cypress Cloud record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
