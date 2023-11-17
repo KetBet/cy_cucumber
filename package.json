@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run cypress:run || npm run report:generate:json || npm run report:generate:html",
-    "cypress:run": "cypress run",
+    "cypress:run": "cypress run --browser chrome --spec cypress/e2e/features/*",
     "build": "webpack --config webpack.config.js",
     "report:generate:json": "npx ts-node ./generate-cucumber-json.ts",
     "report:generate:html": "node ./cucumber-html-report.ts"
